@@ -9,8 +9,7 @@ int main()
 
     /*
     TO DO:
-    search method, delete method
-    *decrease distinctKeys in delete in some cases
+    asserts
     maybe: resizing 
     */
 
@@ -32,5 +31,20 @@ int main()
     cout << map.getDistinctKeys() << endl;
     cout << map << endl;
     HashMap<int,int> test;
-    cout << test;
+    cout << test << endl;
+    cout << map.containsKey("ana") << endl;
+    cout << map.containsKey("ala") << endl;
+    cout << map.getDistinctKeys() << endl;
+    map.remove("mara");
+    cout << map << endl;
+    cout << map.getDistinctKeys() << endl;
+    map.remove("ana");
+    cout << map << endl;
+    cout << map.getDistinctKeys() << endl;
+    try {
+        cout << map["mara"] << endl;
+    }
+    catch (char const* e) {
+        cout << e << endl;
+    }
 }

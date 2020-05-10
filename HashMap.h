@@ -30,9 +30,11 @@ public:
 	}
 
 	HashMap operator=(const HashMap&);
-	void insert(const K& key, const V&);
+	void insert(const K&, const V&);
+	bool containsKey(const K&);
+	void remove(const K&);
 	V operator[](const K&);
-	vector<V> getValues(const K& key);
+	vector<V> getValues(const K&);
 	unsigned getDistinctKeys() { return distinctKeys; }
 	friend ostream& operator<<(ostream& out, const HashMap& map) {
 
@@ -68,7 +70,7 @@ HashMap<K, V, F> HashMap<K, V, F>::operator=(const HashMap& map) {
 template<class K, class V, class F>
 void HashMap<K, V, F>::insert(const K& key, const V& value) {
 
-	unsigned index = function(key);
+	size_t index = function(key);
 	bool found = false;
 	list<pair<K, vector<V>>>& currentList = table[index];
 	if (currentList.size()) {
@@ -112,7 +114,7 @@ V HashMap<K, V, F>::operator[](const K& key) {
 template<class K, class V, class F>
 vector<V> HashMap<K, V, F>::getValues(const K& key)
 {
-	unsigned index = function(key);
+	size_t index = function(key);
 	list<pair<K, vector<V>>> currentList = table[index];
 	typename list<pair<K, vector<V>>>::iterator it = currentList.begin();
 	while (it != currentList.end())
@@ -125,3 +127,45 @@ vector<V> HashMap<K, V, F>::getValues(const K& key)
 	throw "Key not found";
 }
 
+template<class K, class V, class F>
+bool HashMap<K, V, F>::containsKey(const K& key) {
+
+	size_t index = function(key);
+	list<pair<K, vector<V>>> currentList = table[index];
+	typename list<pair<K, vector<V>>>::iterator it = currentList.begin();
+	while (it != currentList.end())
+	{
+		if (it->first == key) {
+			return true;
+		}
+		it++;
+	}
+	return false;
+}
+
+template<class K, class V, class F>
+void HashMap<K, V, F>::remove(const K& key) {
+
+	size_t index = function(key);
+	bool found = false;
+	list<pair<K, vector<V>>>& currentList = table[index];
+	if (currentList.size() == 0) {
+		throw "Key not found";
+	}
+	else {
+		typename list<pair<K, vector<V>>>::iterator it = currentList.begin();
+		while (it != currentList.end())
+		{
+			if (it->first == key) {
+				found = true;
+				currentList.remove({ it->first, it->second });
+				distinctKeys--;
+				break;
+			}
+			it++;
+		}
+		if (!found) {
+			throw "Key not found";
+		}
+	}
+}

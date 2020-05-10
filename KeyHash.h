@@ -13,7 +13,7 @@ public:
 
 	KeyHash(const size_t& size) :tableSize(size) {};
 
-	unsigned operator() (const K& key) {
+	size_t operator() (const K& key) {
 		return hash<K>()(key) % tableSize;
 	}
 
