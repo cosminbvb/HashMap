@@ -3,7 +3,6 @@ HashMap - Year 1 OOP Assignment
 
 **Requirements:**
 
-*Obs:*
 - Collision resolution by chaining
 - A key can have multiple values
 
