@@ -11,7 +11,7 @@ class KeyHash {
 
 public:
 
-	KeyHash(const size_t& size) :tableSize(size) {};
+	KeyHash(const size_t& size = 1013) : tableSize(size) {};
 
 	size_t operator() (const K& key) {
 		return hash<K>()(key) % tableSize;

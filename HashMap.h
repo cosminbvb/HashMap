@@ -13,7 +13,7 @@ class HashMap {
 
 	vector<list<pair<K, vector<V>>>> table;
 	size_t size;
-	KeyHash<K> function = KeyHash<K>(size);
+	KeyHash<K> function;
 	unsigned distinctKeys;
 
 public:
@@ -21,12 +21,14 @@ public:
 	HashMap(const size_t& size = 1013) : size(size) {
 		distinctKeys = 0;
 		table.resize(size);
+		function = KeyHash<K>(size);
 	}
 
 	HashMap(const HashMap& map) {
 		this->size = map.size;
 		this->table = map.table;
 		this->distinctKeys = map.distinctKeys;
+		this->function = map.function;
 	}
 
 	HashMap operator=(const HashMap&);
@@ -64,6 +66,7 @@ HashMap<K, V, F> HashMap<K, V, F>::operator=(const HashMap& map) {
 	this->size = map.size;
 	this->table = map.table;
 	this->distinctKeys = map.distinctKeys;
+	this->function = map.function;
 	return *this;
 }
 
